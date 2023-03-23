@@ -1,0 +1,43 @@
+@font-face {
+    font-family: "Raleway";
+    src: url(./assets/fonts/Raleway-Regular.ttf);
+}
+
+html:root{
+    font-size: 10px;
+    --primary-color: #357ec7;
+    --dark-color: #181818;
+    --light-grey-color: #e3e3e3;
+    --dark-grey-color: #d3d3d3;
+    --font-family: "Raleway"
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: var(--dark-color);
+    font-family: var(--font-family);
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+aside, main {
+    display: block;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    color: var(--dark-color);
+    text-decoration: none;
+}
+
+input {
+    font-family: var(--font-family);
+}
