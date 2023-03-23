@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import "./styles.css";
+import { useSelector } from "react-redux";
 import { Avatar, Divider, Button } from "antd";
 import { BsMicrosoft } from "react-icons/bs";
 import { VscSearch } from "react-icons/vsc";
+import SidebarList from "../SidebarList";
 import userPic from "../../assets/images/user.png";
 
 const Sidebar = () => {
     const [user, setUser] = useState(null);
+
+    const lists = useSelector((state) => state.list.lists);
 
     return (
         <aside className="sidebar">
@@ -49,18 +53,17 @@ const Sidebar = () => {
                 </form>
 
                 <ul className="sidebar-default-lists">
-                    <li>Some Content</li>
-                    <li>Some Content</li>
-                    <li>Some Content</li>
+                    {lists.map(
+                        (list) =>
+                            list.type === "default" && (
+                                <SidebarList key={list.id} {...list} />
+                            )
+                    )}
                 </ul>
 
                 <Divider />
 
-                <ul className="sidebar-custom-lists">
-                    <li>Some Content</li>
-                    <li>Some Content</li>
-                    <li>Some Content</li>
-                </ul>
+                <ul className="sidebar-custom-lists"></ul>
             </div>
 
             <div className="sidebar-bottom-content">Some content</div>

@@ -1,0 +1,51 @@
+.sidebar-list {
+    border-radius: 0.3rem;
+    margin: 0.7rem 0;
+    position: relative;
+}
+
+.sidebar-list:hover {
+    background-color: var(--dark-grey-color);
+}
+
+.sidebar-list a {
+    align-items: center;
+    display: flex;
+    padding: 1rem;
+}
+
+.sidebar-list a:hover {
+    color: inherit;
+}
+
+.sidebar-list a.active {
+    background-color: var(--dark-grey-color);
+}
+
+.sidebar-list a.active::before{
+    background-color: var(--primary-color);
+    border-radius: 5rem;
+    content: "";
+    display: block;
+    height: 1.8rem;
+    position: absolute;
+    left: 0;
+    width: 0.3rem;
+}
+
+.sidebar-list svg {
+    margin-left: 0.8rem;
+}
+
+.sidebar-list-name {
+    margin-left: 1.5rem;
+}
+
+.sidebar-list-count {
+    margin-left: auto;
+}
+
+.sidebar-list-count .ant-badge-count {
+    box-shadow: none;
+    color: var(--dark-color);
+}
