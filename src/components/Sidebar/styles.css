@@ -1,0 +1,80 @@
+.sidebar {
+    background-color: var(--light-grey-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 1.5rem 0.4rem 0 0.4rem;
+    width: 280px;
+}
+
+.sidebar-user {
+    align-items: center;
+    display: flex;
+    padding: 0 1.5rem;
+}
+
+.sidebar-user-image {
+    margin-right: 1.5rem;
+}
+
+.sidebar-user-image img {
+    border: 50%;
+    height: 4rem;
+    width: 4.5rem;
+}
+
+.sidebar-user-name {
+    font-size: 1.6rem;
+    margin-bottom: 0;
+}
+
+.sidebar-user-status {
+    font-size: 1.4rem;
+}
+
+.sidebar-search-form {
+    align-items: center;
+    border: 2px solid #d3d3d3;
+    border-bottom: 1px solid var(--dark-color);
+    border-radius: 0.6rem;
+    background-color: #f9f9f9;
+    display: flex;
+    margin: 1.5rem 1rem;
+    padding: 0 1.5rem;
+}
+
+.sidebar-search-input {
+    background-color: inherit;
+    border: none;
+    outline: none;
+    padding: 0.7rem 0.8rem;
+    width: 100%;
+}
+
+.sidebar-default-lists, .sidebar-custom-lists {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+    list-style-type: none;
+}
+
+.sidebar-custom-lists {
+    height: 320px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.sidebar-custom-lists::-webkit-scrollbar{
+    width: 0.5rem;
+}
+
+.sidebar-custom-lists::-webkit-scrollbar-track{
+    box-shadow: inset 0 0 5px var(--dark-color);;
+    border-radius: 1rem;;
+}
+
+.sidebar-custom-lists::-webkit-scrollbar-thumb{
+    background-color: var(--dark-grey-color);
+    border-radius: 1rem;
+}
