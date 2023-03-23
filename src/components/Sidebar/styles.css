@@ -33,6 +33,25 @@
     font-size: 1.4rem;
 }
 
+.sidebar-login-btn {
+    align-items: center;
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    height: auto;
+    padding: 1rem 0;
+    width: 92% !important;
+}
+
+.sidebar-login-btn:hover {
+    background-color: var(--primary-color) !important;
+}
+
+.sidebar-login-btn svg {
+    margin-right: 0.75rem;
+}
+
 .sidebar-search-form {
     align-items: center;
     border: 2px solid #d3d3d3;
