@@ -6,7 +6,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { BsMicrosoft } from "react-icons/bs";
 import { VscSearch } from "react-icons/vsc";
 import SidebarList from "../SidebarList";
-import AddListInput from "../AddListInput";
+import SidebarListInput from "../SidebarListInput";
 import userPic from "../../assets/images/user.png";
 import { getLists } from "../../features/list/listSlice";
 
@@ -104,15 +104,17 @@ const Sidebar = () => {
                                     <SidebarList
                                         key={list.id}
                                         {...list}
+                                        onHideAddList={hideAddList}
                                         onDisplayMessage={displayMessage}
                                     />
                                 )
                         )}
 
                         {isAddList && (
-                            <AddListInput
+                            <SidebarListInput
                                 onHideAddList={hideAddList}
                                 onDisplayMessage={displayMessage}
+                                mode="add"
                             />
                         )}
                     </ul>

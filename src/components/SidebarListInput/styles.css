@@ -1,15 +1,15 @@
-.add-list-input-form {
+.sidebar-list-input-form {
     align-items: center;
     display: flex;
     background-color: var(--dark-grey-color);
     padding: 0.45rem 0;
 }
 
-.add-list-input-form svg {
+.sidebar-list-input-form svg {
     margin-left: 1.8rem;
 }
 
-.add-list-input-field {
+.sidebar-list-input-field {
     background-color: #fff;
     border: 0.3rem var(--dark-grey-color);
     border-bottom: 0.3rem solid var(--primary-color);

@@ -14,11 +14,13 @@ import { FaTasks } from "react-icons/fa";
 import { FiSun } from "react-icons/fi";
 import { BsPencil } from "react-icons/bs";
 import { deleteList } from "../../features/list/listSlice";
+import SidebarListInput from "../SidebarListInput";
 
 const SidebarList = ({ id, path, name, count, type, onDisplayMessage }) => {
     const [isContextMenuOpen, setContextMenuOpen] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
     const [anchorPoints, setAnchorPoints] = useState({ x: 0, y: 0 });
+    const [showRenameInput, setShowRenameInput] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -67,6 +69,10 @@ const SidebarList = ({ id, path, name, count, type, onDisplayMessage }) => {
         window.open(path).print();
     };
 
+    const displayRenameInput = () => {
+        setShowRenameInput(true);
+    };
+
     let listIcon = <FaTasks size={17} color="#357ec7" />;
 
     if (path === "/my-day") {
@@ -79,6 +85,18 @@ const SidebarList = ({ id, path, name, count, type, onDisplayMessage }) => {
 
     if (path === "/tasks") {
         listIcon = <AiOutlineHome size={17} color="#357ec7" />;
+    }
+
+    if (showRenameInput) {
+        return (
+            <SidebarListInput
+                id={id}
+                currentName={name}
+                mode="edit"
+                onDisplayMessage={onDisplayMessage}
+                onHideAddList={() => setShowRenameInput(false)}
+            />
+        );
     }
 
     return (
@@ -103,7 +121,7 @@ const SidebarList = ({ id, path, name, count, type, onDisplayMessage }) => {
                 onClose={closeContextMenu}
             >
                 {type === "custom" && (
-                    <MenuItem>
+                    <MenuItem onClick={displayRenameInput}>
                         <BsPencil size={17} /> Rename List
                     </MenuItem>
                 )}

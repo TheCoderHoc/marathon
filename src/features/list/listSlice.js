@@ -48,8 +48,20 @@ const listSlice = createSlice({
 
             state.lists = state.lists.filter((list) => list.id !== id);
         },
+        renameList: (state, action) => {
+            const { id, newPath, updatedName } = action.payload;
+
+            state.lists.map((list) => {
+                if (list.id === id) {
+                    list.name = updatedName;
+                    list.path = newPath;
+                }
+
+                return list;
+            });
+        },
     },
 });
 
 export default listSlice.reducer;
-export const { getLists, addList, deleteList } = listSlice.actions;
+export const { getLists, addList, deleteList, renameList } = listSlice.actions;
