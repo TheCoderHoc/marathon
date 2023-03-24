@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./styles.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import TaskViewHeader from "../TaskViewHeader";
 import TaskItem from "../TaskItem";
 import AddTask from "../AddTask";
+import { getTasks } from "../../features/task/taskSlice";
 
 const TaskView = () => {
     const allTasks = useSelector((state) => state.task.tasks);
+
+    const dispatch = useDispatch();
 
     const { list } = useParams();
 
@@ -16,6 +19,12 @@ const TaskView = () => {
     if (!list) {
         tasks = allTasks;
     }
+
+    useEffect(() => {
+        const tasksFromStorage = JSON.parse(localStorage.getItem("tasks"));
+
+        dispatch(getTasks(tasksFromStorage));
+    }, []);
 
     return (
         <div className="task-view">
