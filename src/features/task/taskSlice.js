@@ -13,8 +13,20 @@ const taskSlice = createSlice({
 
             state.tasks.push(newTask);
         },
+
+        toggleCompletion: (state, action) => {
+            const id = action.payload;
+
+            state.tasks.map((task) => {
+                if (task.id === id) {
+                    task.completed = !task.completed;
+                }
+
+                return task;
+            });
+        },
     },
 });
 
 export default taskSlice.reducer;
-export const { addTask } = taskSlice.actions;
+export const { addTask, toggleCompletion } = taskSlice.actions;

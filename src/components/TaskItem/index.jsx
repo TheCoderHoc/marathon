@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./styles.css";
+import { useDispatch } from "react-redux";
 import {
     AiFillCheckCircle,
     AiOutlineCheckCircle,
@@ -7,10 +8,13 @@ import {
 } from "react-icons/ai";
 import { BsCircle } from "react-icons/bs";
 import audioSound from "../../assets/sounds/task-complete.mp3";
+import { toggleCompletion as toggleCompletionStore } from "../../features/task/taskSlice";
 
-const TaskItem = ({ name }) => {
+const TaskItem = ({ id, name }) => {
     const [isTaskCompleted, setTaskCompleted] = useState(false);
     const [isTaskIconHover, setTaskIconHover] = useState(false);
+
+    const dispatch = useDispatch();
 
     const toggleCompletion = () => {
         // play completion sound
@@ -21,6 +25,8 @@ const TaskItem = ({ name }) => {
         }
 
         setTaskCompleted(!isTaskCompleted);
+
+        dispatch(toggleCompletionStore(id));
     };
 
     let taskIcon = (
