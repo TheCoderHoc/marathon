@@ -43,8 +43,13 @@ const listSlice = createSlice({
 
             state.lists.push(newList);
         },
+        deleteList: (state, action) => {
+            const id = action.payload;
+
+            state.lists = state.lists.filter((list) => list.id !== id);
+        },
     },
 });
 
 export default listSlice.reducer;
-export const { getLists, addList } = listSlice.actions;
+export const { getLists, addList, deleteList } = listSlice.actions;
