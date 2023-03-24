@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./styles.css";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Badge, Modal } from "antd";
 import { AiOutlineHome } from "react-icons/ai";
 import { ControlledMenu, MenuItem } from "@szhsin/react-menu";
@@ -15,12 +15,14 @@ import { FiSun } from "react-icons/fi";
 import { BsPencil } from "react-icons/bs";
 import { deleteList } from "../../features/list/listSlice";
 
-const SidebarList = ({ id, path, name, count, type }) => {
+const SidebarList = ({ id, path, name, count, type, onDisplayMessage }) => {
     const [isContextMenuOpen, setContextMenuOpen] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
     const [anchorPoints, setAnchorPoints] = useState({ x: 0, y: 0 });
 
     const dispatch = useDispatch();
+
+    const navigate = useNavigate();
 
     const handleContextMenu = (e) => {
         e.preventDefault();
@@ -37,7 +39,12 @@ const SidebarList = ({ id, path, name, count, type }) => {
     const removeList = () => {
         dispatch(deleteList(id));
 
-        // display a success message
+        onDisplayMessage({
+            type: "success",
+            message: `"${name}" list was deleted successfully...`,
+        });
+
+        navigate("/tasks");
     };
 
     const handleOk = () => {

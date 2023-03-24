@@ -101,7 +101,11 @@ const Sidebar = () => {
                         {allLists.map(
                             (list) =>
                                 list?.type === "custom" && (
-                                    <SidebarList key={list.id} {...list} />
+                                    <SidebarList
+                                        key={list.id}
+                                        {...list}
+                                        onDisplayMessage={displayMessage}
+                                    />
                                 )
                         )}
 
