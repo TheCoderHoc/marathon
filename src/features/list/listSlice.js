@@ -32,6 +32,17 @@ const initialState = {
 const listSlice = createSlice({
     name: "list",
     initialState,
+    reducers: {
+        addList: (state, action) => {
+            const newList = action.payload;
+
+            state.lists.push(newList);
+        },
+        dummyAction: () => {
+            console.log("Goodbye World");
+        },
+    },
 });
 
 export default listSlice.reducer;
+export const { addList, dummyAction } = listSlice.actions;
