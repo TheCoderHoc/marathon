@@ -24,3 +24,9 @@
 .task-view-header-right svg {
     margin: 0 1rem;
 }
+
+@media print {
+    .task-view-header-right{
+        display: none;
+    }
+}

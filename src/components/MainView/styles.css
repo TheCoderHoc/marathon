@@ -2,3 +2,10 @@
     display: flex;
     height: 100vh;
 }
+
+@media print {
+    .main-view{
+        display: block;
+        height: 100%;
+    }
+}

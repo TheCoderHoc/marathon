@@ -27,3 +27,16 @@
     background-color: var(--dark-grey-color);
     border-radius: 1rem;
 }
+
+@media print {
+    .task-view {
+        height: 100%;
+        padding: 2rem;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .task-view-tasks {
+        height: auto;
+    }
+}

@@ -26,3 +26,13 @@
 .task-item-star-icon{
     margin-left: auto;
 }
+
+@media print {
+    .task-item {
+        background-color: none !important;
+    }
+
+    .task-item-star-icon{
+        display: none;
+    }
+}

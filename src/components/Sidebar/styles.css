@@ -113,3 +113,9 @@
 .sidebar-add-list-text {
     margin-left: 1.5rem;
 }
+
+@media print {
+    .sidebar {
+        display: none;
+    }
+}
