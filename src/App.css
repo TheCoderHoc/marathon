@@ -1,0 +1,16 @@
+.szh-menu {
+    min-width: 17rem !important;
+    padding: 0.5rem !important;
+}
+
+.szh-menu__item {
+    align-items: center;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 0.5rem;
+    padding: 0.9rem !important;
+}
+
+.szh-menu__item svg {
+    margin-right: 1.1rem;
+}
