@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Avatar, Divider, Button, message } from "antd";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsMicrosoft } from "react-icons/bs";
@@ -8,13 +8,16 @@ import { VscSearch } from "react-icons/vsc";
 import SidebarList from "../SidebarList";
 import AddListInput from "../AddListInput";
 import userPic from "../../assets/images/user.png";
+import { getLists } from "../../features/list/listSlice";
 
 const Sidebar = () => {
     const [isAddList, setAddList] = useState(false);
     const [user, setUser] = useState(null);
     const [messageApi, contextHolder] = message.useMessage();
 
-    const lists = useSelector((state) => state.list.lists);
+    const allLists = useSelector((state) => state.list.lists);
+
+    const dispatch = useDispatch();
 
     const showAddList = () => {
         setAddList(true);
@@ -30,6 +33,14 @@ const Sidebar = () => {
             content: message,
         });
     };
+
+    useEffect(() => {
+        const listsFromStorage = JSON.parse(localStorage.getItem("lists"));
+
+        if (listsFromStorage) {
+            dispatch(getLists(listsFromStorage));
+        }
+    }, []);
 
     return (
         <>
@@ -76,9 +87,9 @@ const Sidebar = () => {
                     </form>
 
                     <ul className="sidebar-default-lists">
-                        {lists.map(
+                        {allLists.map(
                             (list) =>
-                                list.type === "default" && (
+                                list?.type === "default" && (
                                     <SidebarList key={list.id} {...list} />
                                 )
                         )}
@@ -87,6 +98,13 @@ const Sidebar = () => {
                     <Divider />
 
                     <ul className="sidebar-custom-lists">
+                        {allLists.map(
+                            (list) =>
+                                list?.type === "custom" && (
+                                    <SidebarList key={list.id} {...list} />
+                                )
+                        )}
+
                         {isAddList && (
                             <AddListInput
                                 onHideAddList={hideAddList}

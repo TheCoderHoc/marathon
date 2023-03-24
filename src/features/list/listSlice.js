@@ -33,16 +33,18 @@ const listSlice = createSlice({
     name: "list",
     initialState,
     reducers: {
+        getLists: (state, action) => {
+            const listsFromStorage = action.payload;
+
+            state.lists = listsFromStorage;
+        },
         addList: (state, action) => {
             const newList = action.payload;
 
             state.lists.push(newList);
         },
-        dummyAction: () => {
-            console.log("Goodbye World");
-        },
     },
 });
 
 export default listSlice.reducer;
-export const { addList, dummyAction } = listSlice.actions;
+export const { getLists, addList } = listSlice.actions;
