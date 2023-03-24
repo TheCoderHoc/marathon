@@ -75,11 +75,11 @@ const SidebarList = ({ id, path, name, count, type, onDisplayMessage }) => {
 
     let listIcon = <FaTasks size={17} color="#357ec7" />;
 
-    if (path === "/my-day") {
+    if (path === "/tasks/my-day") {
         listIcon = <FiSun size={17} color="#357ec7" />;
     }
 
-    if (path === "/tomorrow") {
+    if (path === "/tasks/tomorrow") {
         listIcon = <BsCalendarDate size={17} color="#357ec7" />;
     }
 
