@@ -1,0 +1,26 @@
+.task-view-header {
+    align-items: center;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.task-view-header-title {
+    text-transform: capitalize;
+    font-size: 3rem;
+}
+
+.task-view-header-date{
+    font-size: 1.5rem;
+    margin-top: 0.8rem;
+}
+
+.task-view-header-right{
+    align-items: center;
+    display: flex;
+}
+
+.task-view-header-right svg {
+    margin: 0 1rem;
+}

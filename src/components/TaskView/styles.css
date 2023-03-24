@@ -1,0 +1,8 @@
+.task-view {
+    background-color: var(--primary-color);
+    display: flex;
+    flex: content;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 4rem;
+}
