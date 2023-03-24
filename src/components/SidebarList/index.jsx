@@ -37,8 +37,6 @@ const SidebarList = ({ id, path, name, count, type }) => {
     const removeList = () => {
         dispatch(deleteList(id));
 
-        // delete from the store
-        // delete from local storage
         // display a success message
     };
 
