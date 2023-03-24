@@ -35,8 +35,6 @@ const AddTask = () => {
         // increment the appropiate list
 
         setTaskName("");
-
-        console.log(newTask);
     };
 
     return (

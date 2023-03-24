@@ -1,0 +1,28 @@
+.task-item {
+    align-items: center;
+    background-color: var(--light-grey-color);
+    border-radius: 0.5rem;
+    cursor: default;
+    display: flex;
+    margin: 0.5rem 0;
+    padding: 1.5rem;
+    transition: background-color 0.1s ease-in;
+}
+
+.task-item:hover {
+    background-color: #ffffff;
+}
+
+.task-item-name {
+    font-size: 1.4rem;
+    font-weight: normal;
+    margin-left: 1.5rem;
+}
+
+.task-item-name-completed {
+    text-decoration: line-through;
+}
+
+.task-item-star-icon{
+    margin-left: auto;
+}
