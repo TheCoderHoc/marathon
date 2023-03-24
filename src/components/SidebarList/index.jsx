@@ -63,6 +63,10 @@ const SidebarList = ({ id, path, name, count, type, onDisplayMessage }) => {
         setModalOpen(false);
     };
 
+    const handlePrintList = () => {
+        window.open(path).print();
+    };
+
     let listIcon = <FaTasks size={17} color="#357ec7" />;
 
     if (path === "/my-day") {
@@ -104,7 +108,7 @@ const SidebarList = ({ id, path, name, count, type, onDisplayMessage }) => {
                     </MenuItem>
                 )}
 
-                <MenuItem>
+                <MenuItem onClick={handlePrintList}>
                     <AiOutlinePrinter size={17} /> Print List
                 </MenuItem>
                 {type === "custom" && (
