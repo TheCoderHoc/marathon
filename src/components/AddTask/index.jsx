@@ -1,0 +1,58 @@
+import React, { useState } from "react";
+import "./styles.css";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { addTask } from "../../features/task/taskSlice";
+import { AiOutlinePlus } from "react-icons/ai";
+import { BsCircle } from "react-icons/bs";
+
+const AddTask = () => {
+    const [taskName, setTaskName] = useState("");
+    const [switchIcon, setSwitchIcon] = useState(false);
+
+    const dispatch = useDispatch();
+
+    const { list } = useParams();
+
+    // if list = null, lists = []
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const newTask = {
+            id: Date.now() * 10,
+            name: taskName,
+            description: "",
+            completed: false,
+            lists: list ? [list] : [],
+            createdAt: JSON.stringify(new Date()),
+        };
+
+        dispatch(addTask(newTask));
+
+        // add task to store
+        // add task to local storage
+        // increment the appropiate list
+
+        setTaskName("");
+
+        console.log(newTask);
+    };
+
+    return (
+        <form className="add-task" onSubmit={handleSubmit}>
+            {!switchIcon ? <AiOutlinePlus size={20} /> : <BsCircle size={20} />}
+            <input
+                type="text"
+                placeholder="Add a task"
+                className="add-task-input"
+                value={taskName}
+                onChange={(e) => setTaskName(e.target.value)}
+                onFocus={() => setSwitchIcon(true)}
+                onBlur={() => setSwitchIcon(false)}
+            />
+        </form>
+    );
+};
+
+export default AddTask;

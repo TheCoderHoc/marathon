@@ -1,5 +1,6 @@
 import { configureStore, createListenerMiddleware } from "@reduxjs/toolkit";
 import listReducer from "../features/list/listSlice";
+import taskReducer from "../features/task/taskSlice";
 import logger from "redux-logger";
 import { addList, deleteList, renameList } from "../features/list/listSlice";
 
@@ -44,6 +45,7 @@ listenerMiddleware.startListening({
 const store = configureStore({
     reducer: {
         list: listReducer,
+        task: taskReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()

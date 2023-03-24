@@ -1,0 +1,17 @@
+.add-task {
+    align-items: center;
+    background-color: var(--light-grey-color);
+    border-radius: 0.5rem;
+    display: flex;
+    width: 100%;
+    padding-left: 1.5rem;
+}
+
+.add-task-input {
+    background-color: var(--light-grey-color);
+    border: none;
+    font-size: 1.3rem;
+    outline: none;
+    padding: 1.5rem;
+    width: 95%;
+}

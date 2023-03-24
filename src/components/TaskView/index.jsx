@@ -1,13 +1,14 @@
 import React from "react";
 import "./styles.css";
 import TaskViewHeader from "../TaskViewHeader";
+import AddTask from "../AddTask";
 
 const TaskView = () => {
     return (
         <div className="task-view">
             <TaskViewHeader />
 
-            <h2>Add Task Component</h2>
+            <AddTask />
         </div>
     );
 };
