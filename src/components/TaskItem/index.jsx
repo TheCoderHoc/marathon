@@ -15,7 +15,10 @@ import { CiCalendarDate } from "react-icons/ci";
 import { FiMove, FiSun } from "react-icons/fi";
 import { TbSunOff } from "react-icons/tb";
 import audioSound from "../../assets/sounds/task-complete.mp3";
-import { toggleCompletion as toggleCompletionStore } from "../../features/task/taskSlice";
+import {
+    toggleCompletion as toggleCompletionStore,
+    deleteTask,
+} from "../../features/task/taskSlice";
 
 const TaskItem = ({ id, name, lists }) => {
     const [isTaskCompleted, setTaskCompleted] = useState(false);
@@ -44,6 +47,10 @@ const TaskItem = ({ id, name, lists }) => {
         setContextMenuOpen(true);
 
         setAnchorPoint({ x: e.clientX, y: e.clientY });
+    };
+
+    const handleDelete = () => {
+        dispatch(deleteTask(id));
     };
 
     let taskIcon = (
@@ -133,7 +140,7 @@ const TaskItem = ({ id, name, lists }) => {
 
                 <Divider style={{ margin: "0.5rem" }} />
 
-                <MenuItem style={{ color: "red" }}>
+                <MenuItem style={{ color: "red" }} onClick={handleDelete}>
                     <BsTrash size={20} /> Delete task
                 </MenuItem>
             </ControlledMenu>

@@ -3,7 +3,11 @@ import listReducer from "../features/list/listSlice";
 import taskReducer from "../features/task/taskSlice";
 import logger from "redux-logger";
 import { addList, deleteList, renameList } from "../features/list/listSlice";
-import { addTask, toggleCompletion } from "../features/task/taskSlice";
+import {
+    addTask,
+    toggleCompletion,
+    deleteTask,
+} from "../features/task/taskSlice";
 
 const listenerMiddleware = createListenerMiddleware();
 
@@ -54,6 +58,15 @@ listenerMiddleware.startListening({
 
 listenerMiddleware.startListening({
     actionCreator: toggleCompletion,
+    effect: (action, listenerApi) => {
+        const updatedTasks = listenerApi.getState().task.tasks;
+
+        localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    },
+});
+
+listenerMiddleware.startListening({
+    actionCreator: deleteTask,
     effect: (action, listenerApi) => {
         const updatedTasks = listenerApi.getState().task.tasks;
 
