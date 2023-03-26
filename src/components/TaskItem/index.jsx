@@ -23,8 +23,8 @@ import {
     deleteTask,
 } from "../../features/task/taskSlice";
 
-const TaskItem = ({ id, name, lists, important }) => {
-    const [isTaskCompleted, setTaskCompleted] = useState(false);
+const TaskItem = ({ id, name, lists, completed, important }) => {
+    const [isTaskCompleted, setTaskCompleted] = useState(completed);
     const [isTaskImportant, setTaskImportant] = useState(important);
     const [isTaskIconHover, setTaskIconHover] = useState(false);
     const [isContextMenuOpen, setContextMenuOpen] = useState(false);
