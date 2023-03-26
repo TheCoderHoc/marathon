@@ -8,21 +8,24 @@ import {
     AiOutlineCalendar,
     AiOutlineCheckCircle,
     AiOutlineStar,
+    AiFillStar,
 } from "react-icons/ai";
 import { BsCalendarDate, BsTrash } from "react-icons/bs";
 import { BsCircle } from "react-icons/bs";
 import { CiCalendarDate } from "react-icons/ci";
 import { FiMove, FiSun } from "react-icons/fi";
-import { TbSunOff } from "react-icons/tb";
+import { TbSunOff, TbStarOff } from "react-icons/tb";
 import audioSound from "../../assets/sounds/task-complete.mp3";
 import {
     toggleCompletion as toggleCompletionStore,
     toggleMyDay,
+    toggleImportance,
     deleteTask,
 } from "../../features/task/taskSlice";
 
-const TaskItem = ({ id, name, lists }) => {
+const TaskItem = ({ id, name, lists, important }) => {
     const [isTaskCompleted, setTaskCompleted] = useState(false);
+    const [isTaskImportant, setTaskImportant] = useState(important);
     const [isTaskIconHover, setTaskIconHover] = useState(false);
     const [isContextMenuOpen, setContextMenuOpen] = useState(false);
     const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
@@ -52,6 +55,11 @@ const TaskItem = ({ id, name, lists }) => {
 
     const handleToggleMyDay = () => {
         dispatch(toggleMyDay(id));
+    };
+
+    const handleToggleImportance = () => {
+        setTaskImportant(!isTaskImportant);
+        dispatch(toggleImportance(id));
     };
 
     const handleDelete = () => {
@@ -97,8 +105,15 @@ const TaskItem = ({ id, name, lists }) => {
                 {name}
             </h3>
 
-            <div className="task-item-star-icon">
-                <AiOutlineStar size={20} />
+            <div
+                className="task-item-star-icon"
+                onClick={handleToggleImportance}
+            >
+                {isTaskImportant ? (
+                    <AiFillStar size={20} color="#357ec7" />
+                ) : (
+                    <AiOutlineStar size={20} />
+                )}
             </div>
 
             <ControlledMenu
@@ -116,9 +131,16 @@ const TaskItem = ({ id, name, lists }) => {
                         <FiSun size={20} /> Add to My Day
                     </MenuItem>
                 )}
-                <MenuItem>
-                    <AiOutlineStar size={20} /> Mark as important
-                </MenuItem>
+                {lists.includes("important") ? (
+                    <MenuItem onClick={handleToggleImportance}>
+                        <TbStarOff size={20} /> Remove importance
+                    </MenuItem>
+                ) : (
+                    <MenuItem onClick={handleToggleImportance}>
+                        <AiOutlineStar size={20} /> Mark as important
+                    </MenuItem>
+                )}
+
                 <MenuItem>
                     <AiOutlineCheckCircle size={20} /> Mark as completed
                 </MenuItem>

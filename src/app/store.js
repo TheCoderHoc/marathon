@@ -7,6 +7,7 @@ import {
     addTask,
     toggleCompletion,
     toggleMyDay,
+    toggleImportance,
     deleteTask,
 } from "../features/task/taskSlice";
 
@@ -77,6 +78,15 @@ listenerMiddleware.startListening({
 
 listenerMiddleware.startListening({
     actionCreator: toggleMyDay,
+    effect: (action, listenerApi) => {
+        const updatedTasks = listenerApi.getState().task.tasks;
+
+        localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    },
+});
+
+listenerMiddleware.startListening({
+    actionCreator: toggleImportance,
     effect: (action, listenerApi) => {
         const updatedTasks = listenerApi.getState().task.tasks;
 

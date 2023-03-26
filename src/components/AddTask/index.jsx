@@ -14,24 +14,27 @@ const AddTask = () => {
 
     const { list } = useParams();
 
-    // if list = null, lists = []
-
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        let important = false;
+
+        if (list === "important") {
+            important = true;
+        }
 
         const newTask = {
             id: Date.now() * 10,
             name: taskName,
             description: "",
             completed: false,
+            important,
             lists: list ? [list] : [],
             createdAt: JSON.stringify(new Date()),
         };
 
         dispatch(addTask(newTask));
 
-        // add task to store
-        // add task to local storage
         // increment the appropiate list
 
         setTaskName("");

@@ -14,16 +14,28 @@ const TaskView = () => {
 
     const { list } = useParams();
 
-    let tasks = allTasks.filter((task) => task.lists.includes(list));
+    let tasks = allTasks?.filter((task) => task.lists.includes(list));
 
     if (!list) {
-        tasks = allTasks;
+        tasks = [...allTasks];
     }
 
-    useEffect(() => {
-        const tasksFromStorage = JSON.parse(localStorage.getItem("tasks"));
+    const compareImportance = (a, b) => {
+        if (a.important < b.important) return -1;
 
-        dispatch(getTasks(tasksFromStorage));
+        if (a.important > b.important) return 1;
+
+        return 0;
+    };
+
+    tasks.sort(compareImportance).reverse();
+
+    useEffect(() => {
+        let tasksFromStorage = JSON.parse(localStorage.getItem("tasks"));
+
+        if (tasksFromStorage) {
+            dispatch(getTasks(tasksFromStorage));
+        }
     }, []);
 
     return (
@@ -31,7 +43,7 @@ const TaskView = () => {
             <TaskViewHeader />
 
             <ul className="task-view-tasks">
-                {tasks.map((task) => (
+                {tasks?.map((task) => (
                     <TaskItem key={task.id} {...task} />
                 ))}
             </ul>

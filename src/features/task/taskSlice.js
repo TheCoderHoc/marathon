@@ -45,6 +45,28 @@ const taskSlice = createSlice({
                         task.lists.push("my-day");
                     }
                 }
+
+                return task;
+            });
+        },
+
+        toggleImportance: (state, action) => {
+            const id = action.payload;
+
+            state.tasks.map((task) => {
+                if (task.id === id) {
+                    if (task.lists.includes("important")) {
+                        const index = task.lists.indexOf("important");
+
+                        task.lists.splice(index, 1);
+                        task.important = false;
+                    } else {
+                        task.lists.push("important");
+                        task.important = true;
+                    }
+                }
+
+                return task;
             });
         },
 
@@ -57,5 +79,11 @@ const taskSlice = createSlice({
 });
 
 export default taskSlice.reducer;
-export const { getTasks, addTask, toggleCompletion, toggleMyDay, deleteTask } =
-    taskSlice.actions;
+export const {
+    getTasks,
+    addTask,
+    toggleCompletion,
+    toggleMyDay,
+    toggleImportance,
+    deleteTask,
+} = taskSlice.actions;

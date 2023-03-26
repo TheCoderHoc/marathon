@@ -20,6 +20,14 @@ const initialState = {
         },
         {
             id: 2,
+            path: "/tasks/important",
+            name: "Important",
+            type: "default",
+            count: 0,
+            tasks: [],
+        },
+        {
+            id: 3,
             path: "/tasks",
             name: "Tasks",
             type: "default",

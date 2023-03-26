@@ -3,7 +3,7 @@ import "./styles.css";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Badge, Modal } from "antd";
-import { AiOutlineHome } from "react-icons/ai";
+import { AiOutlineHome, AiOutlineStar } from "react-icons/ai";
 import { ControlledMenu, MenuItem } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/index.css";
 import "@szhsin/react-menu/dist/transitions/slide.css";
@@ -81,6 +81,10 @@ const SidebarList = ({ id, path, name, count, type, onDisplayMessage }) => {
 
     if (path === "/tasks/tomorrow") {
         listIcon = <BsCalendarDate size={17} color="#357ec7" />;
+    }
+
+    if (path === "/tasks/important") {
+        listIcon = <AiOutlineStar size={17} color="#357ec7" />;
     }
 
     if (path === "/tasks") {
