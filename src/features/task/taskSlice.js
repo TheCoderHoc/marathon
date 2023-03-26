@@ -32,6 +32,22 @@ const taskSlice = createSlice({
             });
         },
 
+        toggleMyDay: (state, action) => {
+            const id = action.payload;
+
+            state.tasks.map((task) => {
+                if (task.id === id) {
+                    if (task.lists.includes("my-day")) {
+                        const index = task.lists.indexOf("my-day");
+
+                        task.lists.splice(index, 1);
+                    } else {
+                        task.lists.push("my-day");
+                    }
+                }
+            });
+        },
+
         deleteTask: (state, action) => {
             const id = action.payload;
 
@@ -41,5 +57,5 @@ const taskSlice = createSlice({
 });
 
 export default taskSlice.reducer;
-export const { getTasks, addTask, toggleCompletion, deleteTask } =
+export const { getTasks, addTask, toggleCompletion, toggleMyDay, deleteTask } =
     taskSlice.actions;

@@ -17,6 +17,7 @@ import { TbSunOff } from "react-icons/tb";
 import audioSound from "../../assets/sounds/task-complete.mp3";
 import {
     toggleCompletion as toggleCompletionStore,
+    toggleMyDay,
     deleteTask,
 } from "../../features/task/taskSlice";
 
@@ -47,6 +48,10 @@ const TaskItem = ({ id, name, lists }) => {
         setContextMenuOpen(true);
 
         setAnchorPoint({ x: e.clientX, y: e.clientY });
+    };
+
+    const handleToggleMyDay = () => {
+        dispatch(toggleMyDay(id));
     };
 
     const handleDelete = () => {
@@ -103,11 +108,11 @@ const TaskItem = ({ id, name, lists }) => {
                 onClose={() => setContextMenuOpen(false)}
             >
                 {lists.includes("my-day") ? (
-                    <MenuItem>
+                    <MenuItem onClick={handleToggleMyDay}>
                         <TbSunOff size={20} /> Remove from My Day
                     </MenuItem>
                 ) : (
-                    <MenuItem>
+                    <MenuItem onClick={handleToggleMyDay}>
                         <FiSun size={20} /> Add to My Day
                     </MenuItem>
                 )}
