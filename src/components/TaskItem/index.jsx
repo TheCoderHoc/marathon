@@ -59,6 +59,7 @@ const TaskItem = ({ id, name, lists, completed, important }) => {
 
     const handleToggleImportance = () => {
         setTaskImportant(!isTaskImportant);
+
         dispatch(toggleImportance(id));
     };
 
@@ -141,9 +142,15 @@ const TaskItem = ({ id, name, lists, completed, important }) => {
                     </MenuItem>
                 )}
 
-                <MenuItem>
-                    <AiOutlineCheckCircle size={20} /> Mark as completed
-                </MenuItem>
+                {isTaskCompleted ? (
+                    <MenuItem onClick={toggleCompletion}>
+                        <BsCircle size={20} /> Mark as not completed
+                    </MenuItem>
+                ) : (
+                    <MenuItem onClick={toggleCompletion}>
+                        <AiOutlineCheckCircle size={20} /> Mark as completed
+                    </MenuItem>
+                )}
 
                 <Divider style={{ margin: "0.5rem" }} />
 
