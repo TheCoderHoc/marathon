@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./styles.css";
-import { useDispatch } from "react-redux";
-import { ControlledMenu, MenuItem } from "@szhsin/react-menu";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { ControlledMenu, MenuItem, SubMenu } from "@szhsin/react-menu";
 import { Divider } from "antd";
 import {
     AiFillCheckCircle,
@@ -9,10 +10,12 @@ import {
     AiOutlineCheckCircle,
     AiOutlineStar,
     AiFillStar,
+    AiOutlineHome,
 } from "react-icons/ai";
 import { BsCalendarDate, BsTrash } from "react-icons/bs";
 import { BsCircle } from "react-icons/bs";
 import { CiCalendarDate } from "react-icons/ci";
+import { FaTasks } from "react-icons/fa";
 import { FiMove, FiSun } from "react-icons/fi";
 import { TbSunOff, TbStarOff } from "react-icons/tb";
 import audioSound from "../../assets/sounds/task-complete.mp3";
@@ -29,6 +32,10 @@ const TaskItem = ({ id, name, lists, completed, important }) => {
     const [isTaskIconHover, setTaskIconHover] = useState(false);
     const [isContextMenuOpen, setContextMenuOpen] = useState(false);
     const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
+
+    const allLists = useSelector((state) => state.list.lists);
+
+    const params = useParams();
 
     const dispatch = useDispatch();
 
@@ -65,6 +72,60 @@ const TaskItem = ({ id, name, lists, completed, important }) => {
 
     const handleDelete = () => {
         dispatch(deleteTask(id));
+    };
+
+    const handleMoveTask = (taskId, list) => {
+        // load the task with the specified id,
+        // change
+    };
+
+    const generateMoveToLists = (taskId) => {
+        let iterableLists = allLists.filter((list) => {
+            if (
+                list.name !== "My Day" &&
+                list.name !== "Important" &&
+                list.name !== "Tasks"
+            ) {
+                return list;
+            }
+        });
+
+        if (!params.list) {
+            iterableLists = iterableLists.filter(
+                (list) => list.name !== "Tasks"
+            );
+        }
+
+        iterableLists = iterableLists.filter((list) => {
+            if (!list.path.includes(params.list)) {
+                return list;
+            }
+        });
+
+        return iterableLists.map((list) => {
+            const { id, name, path, lists } = list;
+
+            let listIcon = <FaTasks size={17} color="#357ec7" />;
+            if (path === "/tasks/my-day") {
+                listIcon = <FiSun size={17} color="#357ec7" />;
+            }
+            if (path === "/tasks/tomorrow") {
+                listIcon = <BsCalendarDate size={17} color="#357ec7" />;
+            }
+            if (path === "/tasks/important") {
+                listIcon = <AiOutlineStar size={17} color="#357ec7" />;
+            }
+            if (path === "/tasks") {
+                listIcon = <AiOutlineHome size={17} color="#357ec7" />;
+            }
+
+            return (
+                <MenuItem key={id} onClick={() => handleMoveTask(taskId, list)}>
+                    {listIcon}
+                    {name}
+                </MenuItem>
+            );
+        });
     };
 
     let taskIcon = (
@@ -167,10 +228,16 @@ const TaskItem = ({ id, name, lists, completed, important }) => {
 
                 <Divider style={{ margin: "0.5rem" }} />
 
-                <MenuItem>
-                    <FiMove size={20} />
-                    Move task to...
-                </MenuItem>
+                <SubMenu
+                    label={
+                        <>
+                            <FiMove size={20} />
+                            Move task to...
+                        </>
+                    }
+                >
+                    {generateMoveToLists(id)}
+                </SubMenu>
 
                 <Divider style={{ margin: "0.5rem" }} />
 
@@ -183,3 +250,7 @@ const TaskItem = ({ id, name, lists, completed, important }) => {
 };
 
 export default TaskItem;
+
+// when in Tasks, only show Tomorrow and custom lists
+// when in Important, show only tomorrow and custom lists
+// when in custom lists, show Tasks and other custom lists but not the current custom list

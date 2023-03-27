@@ -69,7 +69,6 @@ const AddListInput = ({
             name: listName,
             type: "custom",
             count: 0,
-            tasks: [],
         };
 
         // add to store and local storage

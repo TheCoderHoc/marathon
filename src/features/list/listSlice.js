@@ -8,7 +8,6 @@ const initialState = {
             name: "My Day",
             type: "default",
             count: 0,
-            tasks: [],
         },
         {
             id: 1,
@@ -16,7 +15,6 @@ const initialState = {
             name: "Tomorrow",
             type: "default",
             count: 0,
-            tasks: [],
         },
         {
             id: 2,
@@ -24,7 +22,6 @@ const initialState = {
             name: "Important",
             type: "default",
             count: 0,
-            tasks: [],
         },
         {
             id: 3,
@@ -32,7 +29,6 @@ const initialState = {
             name: "Tasks",
             type: "default",
             count: 0,
-            tasks: [],
         },
     ],
 };
@@ -48,6 +44,8 @@ const listSlice = createSlice({
         },
         addList: (state, action) => {
             const newList = action.payload;
+
+            state.lists = state.lists;
 
             state.lists.push(newList);
         },
