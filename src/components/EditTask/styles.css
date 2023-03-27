@@ -1,0 +1,52 @@
+.edit-task-drawer{
+    background-color: var(--light-grey-color) !important;
+}
+
+.edit-task-drawer .ant-drawer-body {
+    padding: 0 1.5rem;
+}
+
+.edit-task-drawer .ant-drawer-close {
+    margin-left: auto;
+}
+
+.edit-task-block {
+    background-color: #fff;
+    border: 0.2rem solid var(--dark-grey-color);
+    border-radius: 0.4rem;
+    margin: 1.5rem 0;
+    padding: 2rem 1.4rem;
+}
+
+.edit-task-info {
+    align-items: flex-start;
+    display: flex;
+}
+
+.edit-task-name-input {
+    border: none;
+    font-size: 2rem;
+    font-family: var(--font-family);
+    height: fit-content;
+    margin-left: 1.2rem;
+}
+
+.star-icon {
+    margin-left: auto;
+}
+
+.edit-task-add-steps {
+    align-items: center;
+    display: flex;
+    margin-top: 2rem;
+}
+
+.edit-task-add-steps-input {
+    border: none;
+    margin-left: 2rem;
+}
+
+.edit-task-add-steps-input::placeholder{
+    color: var(--primary-color);
+    font-weight: bold;
+}

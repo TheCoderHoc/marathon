@@ -8,6 +8,7 @@ import {
     toggleCompletion,
     toggleMyDay,
     toggleImportance,
+    renameTask,
     deleteTask,
 } from "../features/task/taskSlice";
 
@@ -87,6 +88,15 @@ listenerMiddleware.startListening({
 
 listenerMiddleware.startListening({
     actionCreator: toggleImportance,
+    effect: (action, listenerApi) => {
+        const updatedTasks = listenerApi.getState().task.tasks;
+
+        localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    },
+});
+
+listenerMiddleware.startListening({
+    actionCreator: renameTask,
     effect: (action, listenerApi) => {
         const updatedTasks = listenerApi.getState().task.tasks;
 

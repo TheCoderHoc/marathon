@@ -2,25 +2,29 @@ import React, { useEffect } from "react";
 import "./styles.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { getTasks } from "../../features/task/taskSlice";
 import TaskViewHeader from "../TaskViewHeader";
 import TaskItem from "../TaskItem";
 import AddTask from "../AddTask";
-import { getTasks } from "../../features/task/taskSlice";
 
 const TaskView = () => {
-    const allTasks = useSelector((state) => state.task.tasks);
-
     const dispatch = useDispatch();
 
+    // GRAB ALL THE TASKS FROM THE REDUX STORE
+    const allTasks = useSelector((state) => state.task.tasks);
+
+    // GRAB THE CURRENT LIST THAT WAS NAVIGATED IN THE URL
     const { list } = useParams();
 
+    // FILTER THE TASKS BASED ON THE CURRENT LIST
     let tasks = allTasks?.filter((task) => task.lists.includes(list));
 
     if (!list) {
         tasks = [...allTasks];
     }
 
-    const compareImportance = (a, b) => {
+    // SORT THE TASKS BY ORDER OF IMPORTANCE
+    const compareByImportance = (a, b) => {
         if (a.important < b.important) return -1;
 
         if (a.important > b.important) return 1;
@@ -28,8 +32,9 @@ const TaskView = () => {
         return 0;
     };
 
-    tasks.sort(compareImportance).reverse();
+    tasks.sort(compareByImportance).reverse();
 
+    // GRAB THE TASKS FROM THE LOCAL STORAGE ON LOAD IF THEY EXIST
     useEffect(() => {
         let tasksFromStorage = JSON.parse(localStorage.getItem("tasks"));
 

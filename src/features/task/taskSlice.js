@@ -70,6 +70,18 @@ const taskSlice = createSlice({
             });
         },
 
+        renameTask: (state, action) => {
+            const { id, updatedTaskName } = action.payload;
+
+            state.tasks.map((task) => {
+                if (task.id === id) {
+                    task.name = updatedTaskName;
+                }
+
+                return task;
+            });
+        },
+
         deleteTask: (state, action) => {
             const id = action.payload;
 
@@ -85,5 +97,6 @@ export const {
     toggleCompletion,
     toggleMyDay,
     toggleImportance,
+    renameTask,
     deleteTask,
 } = taskSlice.actions;
