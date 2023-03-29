@@ -15,7 +15,7 @@
     border: 0.2rem solid var(--dark-grey-color);
     border-radius: 0.4rem;
     margin: 1.5rem 0;
-    padding: 2rem 1.4rem;
+    padding: 1.3rem 1.4rem;
 }
 
 .edit-task-info {
@@ -55,4 +55,23 @@
 .edit-task-add-steps-input::placeholder{
     color: var(--primary-color);
     font-weight: bold;
+}
+
+.edit-task-block:nth-child(2){
+    padding: 0;
+}
+
+.edit-task-toggle-my-day{
+    display: flex;
+    cursor: default;
+    padding: 1.5rem;
+    transition: background-color 0.1s ease-in;
+}
+
+.edit-task-toggle-my-day:hover{
+    background-color: var(--light-grey-color);
+}
+
+.edit-task-toggle-my-day svg {
+    margin-right: 1.2rem;
 }

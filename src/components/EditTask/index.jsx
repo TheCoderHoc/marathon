@@ -4,14 +4,18 @@ import { useDispatch } from "react-redux";
 import {
     renameTask as renameTaskInStore,
     addStep,
+    toggleMyDay,
 } from "../../features/task/taskSlice";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsCircle } from "react-icons/bs";
+import { FiSun } from "react-icons/fi";
+import { TbSunOff } from "react-icons/tb";
 import TaskStepItem from "../TaskStepItem";
 
 const EditTask = ({
     id,
     currentName,
+    lists,
     steps,
     taskIcon,
     importanceIcon,
@@ -22,6 +26,8 @@ const EditTask = ({
     const [switchIcon, setSwitchIcon] = useState(false);
 
     const [selectedStepId, setSelectedStepId] = useState(0);
+
+    const isTaskInMyDay = lists.includes("my-day");
 
     const dispatch = useDispatch();
 
@@ -59,6 +65,10 @@ const EditTask = ({
         }
 
         setSelectedStepId(null);
+    };
+
+    const handleMyDayToggle = () => {
+        dispatch(toggleMyDay(id));
     };
 
     return (
@@ -126,7 +136,17 @@ const EditTask = ({
                         />
                     </form>
                 </div>
-                <div className="edit-task-block"></div>
+                <div className="edit-task-block" onClick={handleMyDayToggle}>
+                    {isTaskInMyDay ? (
+                        <div className="edit-task-toggle-my-day" style={{color: "#357ec7"}}>
+                            <TbSunOff size={20} /> Added to My Day
+                        </div>
+                    ) : (
+                        <div className="edit-task-toggle-my-day">
+                            <FiSun size={20} /> Add to My Day
+                        </div>
+                    )}
+                </div>
                 <div className="edit-task-block"></div>
                 <div className="edit-task-block"></div>
             </div>

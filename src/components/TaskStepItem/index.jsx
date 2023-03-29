@@ -98,7 +98,7 @@ const TaskStepItem = ({
     return (
         <div
             className={`task-step-item ${active && "active"}`}
-            onClick={() => onSelectStepId(id, name)}
+            onClick={() => onSelectStepId(id)}
         >
             {taskStepIcon}
 

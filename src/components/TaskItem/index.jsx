@@ -272,6 +272,7 @@ const TaskItem = ({ id, name, lists, completed, important, steps }) => {
                 <EditTask
                     id={id}
                     currentName={name}
+                    lists={lists}
                     steps={steps}
                     taskIcon={taskIcon}
                     importanceIcon={importanceIcon}
