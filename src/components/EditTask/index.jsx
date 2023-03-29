@@ -205,6 +205,5 @@ const EditTask = ({
 
 export default EditTask;
 
-// add task description feature
 // add a box shadow to the edit-task-blocks
 // validate the edit task input field, add step input fields, and add note textarea
