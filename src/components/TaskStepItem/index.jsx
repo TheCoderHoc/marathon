@@ -15,6 +15,7 @@ import {
 } from "react-icons/ai";
 import { BsCircle, BsThreeDotsVertical, BsTrash } from "react-icons/bs";
 import { Menu, MenuItem, MenuButton, MenuDivider } from "@szhsin/react-menu";
+import useValidate from "../../hooks/useValidate";
 
 const TaskStepItem = ({
     id,
@@ -31,14 +32,12 @@ const TaskStepItem = ({
     const isStepCompleted = completed;
 
     const dispatch = useDispatch();
-
     const params = useParams();
+    const validate = useValidate();
 
     const handleToggleCompletion = () => {
         dispatch(toggleTaskStepCompletion({ taskId, taskStepId: id }));
     };
-
-    const handleSelectTaskStep = () => {};
 
     const handleDeleteTaskStep = () => {
         dispatch(deleteTaskStep({ taskId, taskStepId: id }));
@@ -53,13 +52,19 @@ const TaskStepItem = ({
     };
 
     const renameTaskStep = () => {
-        dispatch(
-            renameTaskStepInStore({
-                taskId,
-                taskStepId: id,
-                updatedTaskStepName: taskStepName,
-            })
-        );
+        const error = validate(taskStepName);
+
+        if (!error) {
+            return dispatch(
+                renameTaskStepInStore({
+                    taskId,
+                    taskStepId: id,
+                    updatedTaskStepName: taskStepName,
+                })
+            );
+        }
+
+        setTaskStepName(name);
     };
 
     const handlePromoteToTask = () => {

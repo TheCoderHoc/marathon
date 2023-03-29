@@ -13,6 +13,7 @@ import { FiSun } from "react-icons/fi";
 import { MdDateRange, MdOutlineAttachFile } from "react-icons/md";
 import { TbSunOff } from "react-icons/tb";
 import TaskStepItem from "../TaskStepItem";
+import useValidate from "../../hooks/useValidate";
 
 const EditTask = ({
     id,
@@ -34,32 +35,41 @@ const EditTask = ({
     const isTaskInMyDay = lists.includes("my-day");
 
     const dispatch = useDispatch();
+    const validate = useValidate();
 
     const handleRenameTask = (e) => {
-        if (e.keyCode === 13) {
-            e.preventDefault();
+        e.preventDefault();
 
-            renameTask();
+        const error = validate(editedTaskName);
+
+        if (error) {
+            return setEditedTaskName(currentName);
         }
-    };
 
-    const renameTask = () => {
         dispatch(renameTaskInStore({ id, updatedTaskName: editedTaskName }));
     };
 
     const handleAddTaskStep = (e) => {
         e.preventDefault();
 
-        const newTaskStep = {
-            id: Date.now() * 10,
-            name: taskStepName,
-            completed: false,
-            createdAt: JSON.stringify(new Date()),
-        };
+        addTaskStep();
+    };
 
-        dispatch(addStep({ id, stepToAdd: newTaskStep }));
+    const addTaskStep = () => {
+        const error = validate(taskStepName);
 
-        setTaskStepName("");
+        if (!error) {
+            const newTaskStep = {
+                id: Date.now() * 10,
+                name: taskStepName,
+                completed: false,
+                createdAt: JSON.stringify(new Date()),
+            };
+
+            dispatch(addStep({ id, stepToAdd: newTaskStep }));
+
+            setTaskStepName("");
+        }
     };
 
     const handleSelectStepId = (id) => {
@@ -75,12 +85,20 @@ const EditTask = ({
         dispatch(toggleMyDay(id));
     };
 
-    const handleTaskDescription = (e) => {
-        e.preventDefault();
+    const handleTaskDescription = () => {
+        const error = validate(taskDescription);
 
-        dispatch(
-            addTaskDescription({ taskId: id, description: taskDescription })
-        );
+        if (!error) {
+            dispatch(
+                addTaskDescription({ taskId: id, description: taskDescription })
+            );
+        }
+    };
+
+    const handleBlur = () => {
+        setSwitchIcon(false);
+
+        addTaskStep();
     };
 
     return (
@@ -97,8 +115,7 @@ const EditTask = ({
                             value={editedTaskName}
                             className="edit-task-name-input"
                             onChange={(e) => setEditedTaskName(e.target.value)}
-                            onKeyDown={handleRenameTask}
-                            onBlur={renameTask}
+                            onBlur={handleRenameTask}
                         />
                         <div className="star-icon" onClick={onToggleImportance}>
                             {importanceIcon}
@@ -144,7 +161,7 @@ const EditTask = ({
                             value={taskStepName}
                             onChange={(e) => setTaskStepName(e.target.value)}
                             onFocus={() => setSwitchIcon(true)}
-                            onBlur={() => setSwitchIcon(false)}
+                            onBlur={handleBlur}
                         />
                     </form>
                 </div>
@@ -183,16 +200,12 @@ const EditTask = ({
 
                 <div className="edit-task-block">
                     <div className="edit-task-description">
-                        <form onSubmit={handleTaskDescription}>
-                            <textarea
-                                placeholder="Add note"
-                                value={taskDescription}
-                                onChange={(e) =>
-                                    setTaskDescription(e.target.value)
-                                }
-                                onBlur={handleTaskDescription}
-                            ></textarea>
-                        </form>
+                        <textarea
+                            placeholder="Add note"
+                            value={taskDescription}
+                            onChange={(e) => setTaskDescription(e.target.value)}
+                            onBlur={handleTaskDescription}
+                        ></textarea>
                     </div>
                 </div>
             </div>
@@ -205,5 +218,13 @@ const EditTask = ({
 
 export default EditTask;
 
-// add a box shadow to the edit-task-blocks
-// validate the edit task input field, add step input fields, and add note textarea
+// 01. validate the edit task input field, add step input fields, and add note textarea
+// 02. Build out the bottom part of the edit task drawer
+// 03. Remove the mask when the edit task drawer opens
+// 04. Disable the click on mask to close edit task drawer
+// 05. Validate the add task input field
+// 06. Display a message when there are no tasks to render
+// 07. Build the settings page completely
+// 08. Work on the mobile responsiveness of the entire application
+// 09. Work on the task view header drop down
+// 10. Input field should automatically focus when a task step is clicked
