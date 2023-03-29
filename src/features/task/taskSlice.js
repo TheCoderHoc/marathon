@@ -149,6 +149,18 @@ const taskSlice = createSlice({
                 return task;
             });
         },
+
+        addTaskDescription: (state, action) => {
+            const { taskId, description } = action.payload;
+
+            state.tasks.map((task) => {
+                if (task.id === taskId) {
+                    task.description = description;
+                }
+
+                return task;
+            });
+        },
     },
 });
 
@@ -165,4 +177,5 @@ export const {
     toggleTaskStepCompletion,
     renameTaskStepName,
     deleteTaskStep,
+    addTaskDescription,
 } = taskSlice.actions;

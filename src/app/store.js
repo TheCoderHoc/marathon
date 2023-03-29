@@ -14,6 +14,7 @@ import {
     toggleTaskStepCompletion,
     renameTaskStepName,
     deleteTaskStep,
+    addTaskDescription,
 } from "../features/task/taskSlice";
 
 const listenerMiddleware = createListenerMiddleware();
@@ -137,6 +138,15 @@ listenerMiddleware.startListening({
 
 listenerMiddleware.startListening({
     actionCreator: deleteTaskStep,
+    effect: (action, listenerApi) => {
+        const updatedTasks = listenerApi.getState().task.tasks;
+
+        localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    },
+});
+
+listenerMiddleware.startListening({
+    actionCreator: addTaskDescription,
     effect: (action, listenerApi) => {
         const updatedTasks = listenerApi.getState().task.tasks;
 

@@ -5,10 +5,12 @@ import {
     renameTask as renameTaskInStore,
     addStep,
     toggleMyDay,
+    addTaskDescription,
 } from "../../features/task/taskSlice";
 import { AiOutlinePlus } from "react-icons/ai";
-import { BsCircle } from "react-icons/bs";
+import { BsAlarm, BsCircle, BsArrowRepeat } from "react-icons/bs";
 import { FiSun } from "react-icons/fi";
+import { MdDateRange, MdOutlineAttachFile } from "react-icons/md";
 import { TbSunOff } from "react-icons/tb";
 import TaskStepItem from "../TaskStepItem";
 
@@ -17,6 +19,7 @@ const EditTask = ({
     currentName,
     lists,
     steps,
+    description,
     taskIcon,
     importanceIcon,
     onToggleImportance,
@@ -24,6 +27,7 @@ const EditTask = ({
     const [editedTaskName, setEditedTaskName] = useState(currentName);
     const [taskStepName, setTaskStepName] = useState("");
     const [switchIcon, setSwitchIcon] = useState(false);
+    const [taskDescription, setTaskDescription] = useState(description);
 
     const [selectedStepId, setSelectedStepId] = useState(0);
 
@@ -69,6 +73,14 @@ const EditTask = ({
 
     const handleMyDayToggle = () => {
         dispatch(toggleMyDay(id));
+    };
+
+    const handleTaskDescription = (e) => {
+        e.preventDefault();
+
+        dispatch(
+            addTaskDescription({ taskId: id, description: taskDescription })
+        );
     };
 
     return (
@@ -138,7 +150,10 @@ const EditTask = ({
                 </div>
                 <div className="edit-task-block" onClick={handleMyDayToggle}>
                     {isTaskInMyDay ? (
-                        <div className="edit-task-toggle-my-day" style={{color: "#357ec7"}}>
+                        <div
+                            className="edit-task-toggle-my-day"
+                            style={{ color: "#357ec7" }}
+                        >
                             <TbSunOff size={20} /> Added to My Day
                         </div>
                     ) : (
@@ -147,8 +162,39 @@ const EditTask = ({
                         </div>
                     )}
                 </div>
-                <div className="edit-task-block"></div>
-                <div className="edit-task-block"></div>
+                <div className="edit-task-block">
+                    <ul className="edit-task-block-alarms">
+                        <li>
+                            <BsAlarm size={20} /> Remind me
+                        </li>
+                        <li>
+                            <MdDateRange size={20} /> Add due date
+                        </li>
+                        <li>
+                            <BsArrowRepeat size={20} /> Repeat
+                        </li>
+                    </ul>
+                </div>
+                <div className="edit-task-block">
+                    <div className="edit-task-toggle-add-file">
+                        <MdOutlineAttachFile size={20} /> Add file
+                    </div>
+                </div>
+
+                <div className="edit-task-block">
+                    <div className="edit-task-description">
+                        <form onSubmit={handleTaskDescription}>
+                            <textarea
+                                placeholder="Add note"
+                                value={taskDescription}
+                                onChange={(e) =>
+                                    setTaskDescription(e.target.value)
+                                }
+                                onBlur={handleTaskDescription}
+                            ></textarea>
+                        </form>
+                    </div>
+                </div>
             </div>
             <div className="edit-task-bottom-content">
                 <div className="edit-task-block"></div>
@@ -159,5 +205,6 @@ const EditTask = ({
 
 export default EditTask;
 
-// disable and deselect task step item onBlur
-// reduce some paddings
+// add task description feature
+// add a box shadow to the edit-task-blocks
+// validate the edit task input field, add step input fields, and add note textarea

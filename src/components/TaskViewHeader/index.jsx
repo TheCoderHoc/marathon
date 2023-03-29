@@ -27,4 +27,3 @@ const TaskViewHeader = () => {
 };
 
 export default TaskViewHeader;
-
