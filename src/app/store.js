@@ -10,6 +10,10 @@ import {
     toggleImportance,
     renameTask,
     deleteTask,
+    addStep,
+    toggleTaskStepCompletion,
+    renameTaskStepName,
+    deleteTaskStep,
 } from "../features/task/taskSlice";
 
 const listenerMiddleware = createListenerMiddleware();
@@ -97,6 +101,42 @@ listenerMiddleware.startListening({
 
 listenerMiddleware.startListening({
     actionCreator: renameTask,
+    effect: (action, listenerApi) => {
+        const updatedTasks = listenerApi.getState().task.tasks;
+
+        localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    },
+});
+
+listenerMiddleware.startListening({
+    actionCreator: addStep,
+    effect: (action, listenerApi) => {
+        const updatedTasks = listenerApi.getState().task.tasks;
+
+        localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    },
+});
+
+listenerMiddleware.startListening({
+    actionCreator: toggleTaskStepCompletion,
+    effect: (action, listenerApi) => {
+        const updatedTasks = listenerApi.getState().task.tasks;
+
+        localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    },
+});
+
+listenerMiddleware.startListening({
+    actionCreator: renameTaskStepName,
+    effect: (action, listenerApi) => {
+        const updatedTasks = listenerApi.getState().task.tasks;
+
+        localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    },
+});
+
+listenerMiddleware.startListening({
+    actionCreator: deleteTaskStep,
     effect: (action, listenerApi) => {
         const updatedTasks = listenerApi.getState().task.tasks;
 

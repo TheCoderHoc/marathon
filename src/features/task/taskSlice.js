@@ -87,6 +87,68 @@ const taskSlice = createSlice({
 
             state.tasks = state.tasks.filter((task) => task.id !== id);
         },
+
+        addStep: (state, action) => {
+            const { id, stepToAdd } = action.payload;
+
+            state.tasks.map((task) => {
+                if (task.id === id) {
+                    task.steps.push(stepToAdd);
+                }
+
+                return task;
+            });
+        },
+
+        toggleTaskStepCompletion: (state, action) => {
+            const { taskId, taskStepId } = action.payload;
+
+            state.tasks.map((task) => {
+                if (task.id === taskId) {
+                    task.steps.map((step) => {
+                        if (step.id === taskStepId) {
+                            step.completed = !step.completed;
+                        }
+
+                        return step;
+                    });
+                }
+
+                return task;
+            });
+        },
+
+        renameTaskStepName: (state, action) => {
+            const { taskId, taskStepId, updatedTaskStepName } = action.payload;
+
+            state.tasks.map((task) => {
+                if (task.id === taskId) {
+                    task.steps.map((step) => {
+                        if (step.id === taskStepId) {
+                            step.name = updatedTaskStepName;
+                        }
+
+                        return step;
+                    });
+                }
+
+                return task;
+            });
+        },
+
+        deleteTaskStep: (state, action) => {
+            const { taskId, taskStepId } = action.payload;
+
+            state.tasks.map((task) => {
+                if (task.id === taskId) {
+                    task.steps = task.steps.filter(
+                        (step) => step.id !== taskStepId
+                    );
+                }
+
+                return task;
+            });
+        },
     },
 });
 
@@ -99,4 +161,8 @@ export const {
     toggleImportance,
     renameTask,
     deleteTask,
+    addStep,
+    toggleTaskStepCompletion,
+    renameTaskStepName,
+    deleteTaskStep,
 } = taskSlice.actions;

@@ -21,6 +21,11 @@
 .edit-task-info {
     align-items: flex-start;
     display: flex;
+    padding: 1rem;
+}
+
+.edit-task-info-icon {
+    margin-left: -0.2rem;
 }
 
 .edit-task-name-input {
@@ -38,12 +43,13 @@
 .edit-task-add-steps {
     align-items: center;
     display: flex;
-    margin-top: 2rem;
+    padding: 1rem;
+    margin-top: 1.3rem;
 }
 
 .edit-task-add-steps-input {
     border: none;
-    margin-left: 2rem;
+    margin-left: 1.2rem;
 }
 
 .edit-task-add-steps-input::placeholder{

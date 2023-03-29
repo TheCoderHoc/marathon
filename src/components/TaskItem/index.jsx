@@ -28,7 +28,7 @@ import {
 } from "../../features/task/taskSlice";
 import EditTask from "../EditTask";
 
-const TaskItem = ({ id, name, lists, completed, important }) => {
+const TaskItem = ({ id, name, lists, completed, important, steps }) => {
     const [isTaskIconHover, setTaskIconHover] = useState(false);
     const [isContextMenuOpen, setContextMenuOpen] = useState(false);
     const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
@@ -272,6 +272,7 @@ const TaskItem = ({ id, name, lists, completed, important }) => {
                 <EditTask
                     id={id}
                     currentName={name}
+                    steps={steps}
                     taskIcon={taskIcon}
                     importanceIcon={importanceIcon}
                     onToggleCompletion={handleToggleCompletion}

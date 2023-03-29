@@ -1,0 +1,42 @@
+.task-step-item {
+    align-items: center;
+    border-bottom: 0.1rem solid var(--light-grey-color);
+    cursor: default;
+    display: flex;
+    margin: 0.8rem 0;
+    padding: 1rem;
+    transition: background-color 0.1s ease-in;
+}
+
+
+.task-step-item.active, .task-step-item.active .task-step-item-name-input, .task-step-item:hover{
+    background-color: var(--light-grey-color);
+    border-radius: 0.4rem;
+}
+
+.task-step-item-name-input {
+    background-color: #fff;
+    border: none;
+    font-size: 1.45rem;
+    margin-left: 1rem;
+    transition: background-color 0.1s ease-in;
+    padding: 0.5rem 0;
+    width: 100%;
+}
+
+.task-step-item-name-input:disabled{
+    color: var(--dark-color);
+}
+
+.task-step-item-name-input.completed{
+    text-decoration: line-through;
+}
+
+.task-step-item:hover .task-step-item-name-input{
+    background-color: var(--light-grey-color);
+}
+
+.task-step-item-menu-icon{
+    background-color: transparent;
+    border: none;
+}

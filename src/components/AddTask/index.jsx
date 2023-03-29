@@ -30,6 +30,7 @@ const AddTask = () => {
             completed: false,
             important,
             lists: list ? [list] : [],
+            steps: [],
             createdAt: JSON.stringify(new Date()),
         };
 

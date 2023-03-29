@@ -1,18 +1,27 @@
 import React, { useState } from "react";
 import "./styles.css";
 import { useDispatch } from "react-redux";
-import { renameTask as renameTaskInStore } from "../../features/task/taskSlice";
+import {
+    renameTask as renameTaskInStore,
+    addStep,
+} from "../../features/task/taskSlice";
 import { AiOutlinePlus } from "react-icons/ai";
+import { BsCircle } from "react-icons/bs";
+import TaskStepItem from "../TaskStepItem";
 
 const EditTask = ({
     id,
     currentName,
+    steps,
     taskIcon,
     importanceIcon,
     onToggleImportance,
 }) => {
     const [editedTaskName, setEditedTaskName] = useState(currentName);
-    const [stepName, setStepName] = useState("");
+    const [taskStepName, setTaskStepName] = useState("");
+    const [switchIcon, setSwitchIcon] = useState(false);
+
+    const [selectedStepId, setSelectedStepId] = useState(0);
 
     const dispatch = useDispatch();
 
@@ -28,6 +37,30 @@ const EditTask = ({
         dispatch(renameTaskInStore({ id, updatedTaskName: editedTaskName }));
     };
 
+    const handleAddTaskStep = (e) => {
+        e.preventDefault();
+
+        const newTaskStep = {
+            id: Date.now() * 10,
+            name: taskStepName,
+            completed: false,
+            createdAt: JSON.stringify(new Date()),
+        };
+
+        dispatch(addStep({ id, stepToAdd: newTaskStep }));
+
+        setTaskStepName("");
+    };
+
+    const handleSelectStepId = (id) => {
+        if (selectedStepId !== id) {
+            setSelectedStepId(id);
+            return;
+        }
+
+        setSelectedStepId(null);
+    };
+
     return (
         <div className="edit-task">
             <div className="edit-task-top-content">
@@ -36,7 +69,7 @@ const EditTask = ({
                         className="edit-task-info"
                         onSubmit={handleRenameTask}
                     >
-                        {taskIcon}
+                        <div className="edit-task-info-icon">{taskIcon}</div>
                         <input
                             type="text"
                             value={editedTaskName}
@@ -49,14 +82,47 @@ const EditTask = ({
                             {importanceIcon}
                         </div>
                     </form>
-                    <form className="edit-task-add-steps">
-                        <AiOutlinePlus size={18} color="#357ec7" />
+
+                    <ul>
+                        {steps.map((step) => {
+                            return (
+                                <TaskStepItem
+                                    key={step.id}
+                                    {...step}
+                                    taskId={id}
+                                    active={selectedStepId === step.id}
+                                    onSelectStepId={handleSelectStepId}
+                                />
+                            );
+                        })}
+                    </ul>
+                    <form
+                        className="edit-task-add-steps"
+                        onSubmit={handleAddTaskStep}
+                    >
+                        {switchIcon ? (
+                            <BsCircle
+                                size={20}
+                                className="edit-task-info-icon"
+                            />
+                        ) : (
+                            <AiOutlinePlus
+                                size={20}
+                                color="#357ec7"
+                                className="edit-task-info-icon"
+                            />
+                        )}
+
                         <input
                             type="text"
-                            placeholder="Add Step"
+                            placeholder={
+                                steps.length > 0 ? "Next Step" : "Add Step"
+                            }
                             className="edit-task-add-steps-input"
-                            value={stepName}
-                            onChange={(e) => setStepName(e.target.value)}
+                            value={taskStepName}
+                            onChange={(e) => setTaskStepName(e.target.value)}
+                            onFocus={() => setSwitchIcon(true)}
+                            onBlur={() => setSwitchIcon(false)}
                         />
                     </form>
                 </div>
@@ -73,4 +139,5 @@ const EditTask = ({
 
 export default EditTask;
 
-// steps can be added to tasks and canbe completed or uncompleted, and can be promoted to task and can also be deleted
+// disable and deselect task step item onBlur
+// reduce some paddings
