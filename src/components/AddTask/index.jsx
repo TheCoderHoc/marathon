@@ -5,40 +5,46 @@ import { useParams } from "react-router-dom";
 import { addTask } from "../../features/task/taskSlice";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsCircle } from "react-icons/bs";
+import useValidate from "../../hooks/useValidate";
 
 const AddTask = () => {
     const [taskName, setTaskName] = useState("");
     const [switchIcon, setSwitchIcon] = useState(false);
 
     const dispatch = useDispatch();
+    const validate = useValidate();
 
     const { list } = useParams();
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        let important = false;
+        const error = validate(taskName);
 
-        if (list === "important") {
-            important = true;
+        if (!error) {
+            let important = false;
+
+            if (list === "important") {
+                important = true;
+            }
+
+            const newTask = {
+                id: Date.now() * 10,
+                name: taskName,
+                description: "",
+                completed: false,
+                important,
+                lists: list ? [list] : [],
+                steps: [],
+                createdAt: JSON.stringify(new Date()),
+            };
+
+            dispatch(addTask(newTask));
+
+            // increment the appropiate list
+
+            setTaskName("");
         }
-
-        const newTask = {
-            id: Date.now() * 10,
-            name: taskName,
-            description: "",
-            completed: false,
-            important,
-            lists: list ? [list] : [],
-            steps: [],
-            createdAt: JSON.stringify(new Date()),
-        };
-
-        dispatch(addTask(newTask));
-
-        // increment the appropiate list
-
-        setTaskName("");
     };
 
     return (

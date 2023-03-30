@@ -231,8 +231,6 @@ const EditTask = ({
 
 export default EditTask;
 
-// 03. Remove the mask when the edit task drawer opens
-// 04. Disable the click on mask to close edit task drawer
 // 05. Validate the add task input field
 // 06. Display a message when there are no tasks to render
 // 07. Build the settings page completely
