@@ -276,6 +276,7 @@ const TaskItem = ({
                 closeIcon={<AiOutlineClose size={17} />}
                 onClose={closeDrawer}
                 destroyOnClose
+                maskClosable={false}
                 className="edit-task-drawer"
             >
                 <EditTask
