@@ -34,6 +34,7 @@ const TaskItem = ({
     lists,
     completed,
     important,
+    createdAt,
     steps,
     description,
 }) => {
@@ -282,6 +283,7 @@ const TaskItem = ({
                     currentName={name}
                     lists={lists}
                     steps={steps}
+                    createdAt={createdAt}
                     description={description}
                     taskIcon={taskIcon}
                     importanceIcon={importanceIcon}

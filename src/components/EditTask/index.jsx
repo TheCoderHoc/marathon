@@ -6,14 +6,16 @@ import {
     addStep,
     toggleMyDay,
     addTaskDescription,
+    deleteTask,
 } from "../../features/task/taskSlice";
 import { AiOutlinePlus } from "react-icons/ai";
-import { BsAlarm, BsCircle, BsArrowRepeat } from "react-icons/bs";
+import { BsAlarm, BsCircle, BsArrowRepeat, BsTrash } from "react-icons/bs";
 import { FiSun } from "react-icons/fi";
 import { MdDateRange, MdOutlineAttachFile } from "react-icons/md";
 import { TbSunOff } from "react-icons/tb";
 import TaskStepItem from "../TaskStepItem";
 import useValidate from "../../hooks/useValidate";
+import { format } from "date-fns";
 
 const EditTask = ({
     id,
@@ -21,6 +23,7 @@ const EditTask = ({
     lists,
     steps,
     description,
+    createdAt,
     taskIcon,
     importanceIcon,
     onToggleImportance,
@@ -33,6 +36,8 @@ const EditTask = ({
     const [selectedStepId, setSelectedStepId] = useState(0);
 
     const isTaskInMyDay = lists.includes("my-day");
+
+    const dateCreated = format(new Date(JSON.parse(createdAt)), "eeee, MMMM d");
 
     const dispatch = useDispatch();
     const validate = useValidate();
@@ -99,6 +104,10 @@ const EditTask = ({
         setSwitchIcon(false);
 
         addTaskStep();
+    };
+
+    const handleDeleteTask = () => {
+        dispatch(deleteTask(id));
     };
 
     return (
@@ -209,8 +218,12 @@ const EditTask = ({
                     </div>
                 </div>
             </div>
+
             <div className="edit-task-bottom-content">
-                <div className="edit-task-block"></div>
+                <p className="edit-task-date-created">
+                    Created on {dateCreated}
+                </p>
+                <BsTrash size={17} onClick={handleDeleteTask} />
             </div>
         </div>
     );
@@ -218,8 +231,6 @@ const EditTask = ({
 
 export default EditTask;
 
-// 01. validate the edit task input field, add step input fields, and add note textarea
-// 02. Build out the bottom part of the edit task drawer
 // 03. Remove the mask when the edit task drawer opens
 // 04. Disable the click on mask to close edit task drawer
 // 05. Validate the add task input field
