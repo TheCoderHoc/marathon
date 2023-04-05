@@ -231,8 +231,6 @@ const EditTask = ({
 
 export default EditTask;
 
-// 05. Validate the add task input field
-// 06. Display a message when there are no tasks to render
 // 07. Build the settings page completely
 // 08. Work on the mobile responsiveness of the entire application
 // 09. Work on the task view header drop down

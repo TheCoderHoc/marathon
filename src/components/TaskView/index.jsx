@@ -6,6 +6,8 @@ import { getTasks } from "../../features/task/taskSlice";
 import TaskViewHeader from "../TaskViewHeader";
 import TaskItem from "../TaskItem";
 import AddTask from "../AddTask";
+import { Empty } from "antd";
+import emptyImage from "../../assets/images/emptyTwo.svg";
 
 const TaskView = () => {
     const dispatch = useDispatch();
@@ -47,11 +49,24 @@ const TaskView = () => {
         <div className="task-view">
             <TaskViewHeader />
 
-            <ul className="task-view-tasks">
-                {tasks?.map((task) => (
-                    <TaskItem key={task.id} {...task} />
-                ))}
-            </ul>
+            {/* RENDER THIS IF THERE ARE NO TASKS IN THE FILTERED TASKS ARRAY */}
+            {tasks.length === 0 && (
+                <Empty
+                    image={emptyImage}
+                    description={
+                        <p className="task-view-empty">No tasks found...</p>
+                    }
+                />
+            )}
+
+            {/* RENDER THIS IF THERE ARE TASKS IN THE FILTERED TASKS ARRAY */}
+            {tasks.length > 0 && (
+                <ul className="task-view-tasks">
+                    {tasks?.map((task) => (
+                        <TaskItem key={task.id} {...task} />
+                    ))}
+                </ul>
+            )}
 
             <AddTask />
         </div>

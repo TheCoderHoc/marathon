@@ -28,6 +28,11 @@
     border-radius: 1rem;
 }
 
+.task-view-empty {
+    font-family: var(--font-family);
+    color: #fff;
+}
+
 @media print {
     .task-view {
         height: 100%;
